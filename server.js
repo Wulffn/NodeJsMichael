@@ -4,6 +4,7 @@ const moment = require('moment')
 const bodyParser = require('body-parser');
 
 const app = express();
+const port = process.env.port || 3000
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -32,5 +33,7 @@ app.post('/', async function(req, res) {
     });
 });
 
-app.listen(8080);
-console.log("Server listening on port 8080")
+app.listen(port, () => {
+    console.log("Server listening on port 8080")
+});
+

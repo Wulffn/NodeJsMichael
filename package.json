@@ -9,5 +9,9 @@
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.11.0",
     "moment": "^2.29.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: No tests specified\" && exit 1",
+    "start": "node server.js"
   }
 }

@@ -1,0 +1,58 @@
+<% let index = 1 %>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Løbenummer</th>
+            <th scope="col">Kontonummer</th>
+            <th scope="col">Bogførings dato</th>
+            <th scope="col">Posterings tekst</th>
+            <th scope="col">Beløb</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% postings.forEach(posting => { %>
+        <% const classNameRow = posting.data().finished ? "table-success" : "" %>
+        <% const disabled = posting.data().finished ? "disabled" : ""%>
+        <tr class=<%=classNameRow%>>
+            <th scope="row"><%= posting.data().num %></th>
+            <td><%= posting.data().accountNo %></td>
+            <td><%= moment(posting.data().date, "YYYY-MM-DD").format("DD-MM-YYYY") %></td>
+            <td><%= posting.data().text %></td>
+            <td><%= posting.data().amount %></td>
+            <td>
+                <form action="/finish" method="POST">
+                    <input type="submit" class="btn btn-info" <%= disabled %> value="Luk" />
+                    <input name="id" type="hidden" value=<%= posting.id %> />
+                </form>
+            </td>
+        </tr>
+        <% 
+        index++;
+        });
+        %>
+        <form href="/" method="POST">
+            <tr>
+                <th scope="row">
+                    <input name="num" type="text" disabled value="<%= index %>" />
+                </th>
+                <td>
+                    <input name="accountNo" type="text" placeholder="Kontonummer" />
+                </td>
+                <td>
+                    <input name="date" type="date" />
+                </td>
+                <td>
+                    <input name="text" type="text" placeholder="Posterings tekst" />
+                </td>
+                <td>
+                    <input name="amount" type="text" placeholder="Beløb" />
+                </td>
+                <td>
+                    <input name="num" type="hidden" value="<%= index %>" />
+                    <input type="submit" class="btn btn-info" value="Tilføj" />
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>
